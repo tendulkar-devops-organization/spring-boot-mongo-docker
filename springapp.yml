@@ -33,3 +33,49 @@ spec:
   selector:
     app: springapp
   type: NodePort
+  
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: mongorc
+  labels:
+    app: mongo
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: mongo-pod
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - image: mongo
+        name: mongocontainer
+        ports:
+        - name: mongo
+          containerPort: 27017
+          hostPort: 27017
+        volumeMounts: 
+        - name : mongovolumemount
+          mountPath: /data/db
+      volumes:
+      - name: mongovolumemount
+        hostPath:
+          path: /tmp/mongobkp 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+  labels:
+    name: mongo
+spec:
+  type: ClusterIP
+  selector:
+    app: mongo
+  ports:
+  - port: 27017
+    targetPort: 27017
+
+
