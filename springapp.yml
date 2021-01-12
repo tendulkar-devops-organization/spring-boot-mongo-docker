@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: springapp-rc
+spec:
+  replicas: 2
+  selector:
+    app: springapp
+  template:
+    metadata:
+      name: spring-app-pod
+      labels:
+        app: springapp
+    spec:
+      containers:
+      - image: tendulkar999/spring-boot-mongo:1
+        name: springappcontainer
+        ports:
+        - name: springapp
+          containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springapp-rc-service
+  labels:
+    app: springapp
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: springapp
+  type: NodePort
