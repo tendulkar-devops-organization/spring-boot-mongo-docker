@@ -1,0 +1,22 @@
+node{
+    stage('checkout'){
+        git credentialsId: 'GIT_CREDENTIALS', url: 'https://github.com/tendulkar-devops-organization/spring-boot-mongo-docker.git'
+    }
+    stage('build'){
+        def mavenHome = tool name: "maven:3.6.1", type: "maven"
+        def mavenCMD = "${mavenHome}/bin/mvn"
+        sh "${mavenCMD} clean package"
+    }
+    stage('build docker image') {
+        sh 'docker build -t tendulkar999/spring-boot-mongo:1 .'
+    }
+    stage ('push docker image'){
+        withCredentials([string(credentialsId: 'DockerHub_PWD', variable: 'DockerHub_PWD')]) {
+        sh "docker login -u tendulkar999 -p ${DockerHub_PWD}"
+        }
+        sh 'docker push tendulkar999/spring-boot-mongo:1'
+    }
+    stage ('deploy to deployment server(kubernetes)'){
+        sh 'kubectl apply -f springapp.yml'
+    }
+}
