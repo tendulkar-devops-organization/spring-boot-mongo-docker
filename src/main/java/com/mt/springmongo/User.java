@@ -82,7 +82,7 @@ public class User implements Serializable {
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
                 Objects.equals(email, user.email) &&
-		Objects.equals(address,user.address);
+		Objects.equals(address, user.address);
 		
 		
     }
