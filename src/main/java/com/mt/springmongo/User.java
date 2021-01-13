@@ -26,7 +26,7 @@ public class User implements Serializable {
     private String email;
     private String address;
 
-    public User(String firstName, String lastName, String email) {
+    public User(String firstName, String lastName, String email, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
