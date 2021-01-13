@@ -14,7 +14,7 @@ spec:
         app: springapp
     spec:
       containers:
-      - image: tendulkar999/spring-boot-mongo:1
+      - image: tendulkar999/spring-boot-mongo:2
         name: springappcontainer
         ports:
         - name: springapp
