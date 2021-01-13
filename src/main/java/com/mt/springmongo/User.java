@@ -24,11 +24,13 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
+    private String address;
 
     public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+	this.address = address;
     }
 
     public String getId() {
@@ -62,6 +64,14 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+    public String getaddress() {
+        return address;
+    }
+
+    public void setaddress(String address) {
+        this.address = address;
+    }
+    
 
     @Override
     public boolean equals(Object o) {
@@ -71,11 +81,14 @@ public class User implements Serializable {
         return Objects.equals(id, user.id) &&
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
-                Objects.equals(email, user.email);
+                Objects.equals(email, user.email) &&
+		Objects.equals(address,user.address);
+		
+		
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email);
+        return Objects.hash(id, firstName, lastName, email, address);
     }
 }
